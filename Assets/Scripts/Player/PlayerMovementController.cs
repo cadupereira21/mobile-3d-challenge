@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Player {
-    public class MovePlayer : MonoBehaviour {
+    public class PlayerMovementController : MonoBehaviour {
         private static readonly int IsRunning = Animator.StringToHash("isRunning");
 
         [SerializeField]
@@ -12,6 +12,8 @@ namespace Player {
         
         [SerializeField]
         private float controllerDeadZone = 0.1f;
+
+        public bool canMove = true;
 
         private Vector2 _input;
         
@@ -39,7 +41,7 @@ namespace Player {
         }
 
         private void Move() {
-            if (_input.magnitude <= controllerDeadZone) return;
+            if (!canMove || _input.magnitude <= controllerDeadZone) return;
             _characterController.Move(this.transform.forward * (_input.magnitude * moveSpeed * Time.deltaTime));        
             _characterController.Move(Vector3.down * (9.81f * Time.deltaTime));
         }
@@ -51,7 +53,7 @@ namespace Player {
             
             Vector3 targetDirection = _input.x * right + _input.y * forward; 
             
-            if (_input != Vector2.zero && targetDirection.magnitude > controllerDeadZone)
+            if (canMove && _input != Vector2.zero && targetDirection.magnitude > controllerDeadZone)
             {
                 Quaternion freeRotation = Quaternion.LookRotation(targetDirection.normalized);
                 this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.Euler(new Vector3(this.transform.eulerAngles.x, freeRotation.eulerAngles.y, this.transform.eulerAngles.z)), 10 * Time.deltaTime);

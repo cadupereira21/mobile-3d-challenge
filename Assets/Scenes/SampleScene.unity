@@ -4171,6 +4171,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1438546958550902218}
+  - {fileID: 2008103497}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &620964403
@@ -7800,6 +7801,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystickHandle: {fileID: 1346035798}
   joystickBackground: {fileID: 2056321753}
+--- !u!4 &2008103497 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 621689809677769491, guid: 7bd1f2c0fcdfa6a429ddedf99a7c4f77, type: 3}
+  m_PrefabInstance: {fileID: 2942965411137838359}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2056321753
 GameObject:
   m_ObjectHideFlags: 0
@@ -7886,7 +7892,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 435877469}
     m_Modifications:
     - target: {fileID: 621689809677769491, guid: 7bd1f2c0fcdfa6a429ddedf99a7c4f77, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7906,15 +7912,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 621689809677769491, guid: 7bd1f2c0fcdfa6a429ddedf99a7c4f77, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 621689809677769491, guid: 7bd1f2c0fcdfa6a429ddedf99a7c4f77, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 621689809677769491, guid: 7bd1f2c0fcdfa6a429ddedf99a7c4f77, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 621689809677769491, guid: 7bd1f2c0fcdfa6a429ddedf99a7c4f77, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7932,12 +7938,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy1
       objectReference: {fileID: 0}
-    - target: {fileID: 4624895140451906056, guid: 7bd1f2c0fcdfa6a429ddedf99a7c4f77, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2857430078340105691, guid: 7bd1f2c0fcdfa6a429ddedf99a7c4f77, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bd1f2c0fcdfa6a429ddedf99a7c4f77, type: 3}
@@ -7989,10 +7992,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3370163700561057140, guid: 107cf89ded8b2dc4cb7994b0aaeac40b, type: 3}
-      propertyPath: controllerDeadZone
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 4624895140451906056, guid: 107cf89ded8b2dc4cb7994b0aaeac40b, type: 3}
       propertyPath: m_Name
       value: Player
@@ -8013,4 +8012,3 @@ SceneRoots:
   - {fileID: 435877469}
   - {fileID: 669961403}
   - {fileID: 1062228684}
-  - {fileID: 2942965411137838359}
