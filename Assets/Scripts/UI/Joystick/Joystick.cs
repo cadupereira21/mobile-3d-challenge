@@ -1,43 +1,50 @@
-using System;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Joystick : MonoBehaviour  {
+namespace UI.Joystick {
+    public class Joystick : MonoBehaviour  {
     
-    [SerializeField]
-    private GameObject joystickHandle;
+        [SerializeField]
+        private Image joystickHandle;
     
-    [SerializeField]
-    private GameObject joystickBackground;
+        [SerializeField]
+        private GameObject joystickBackground;
 
-    private void Awake() {
-        HideJoystick();
-    }
+        private void Awake() {
+            HideJoystick();
+        }
 
-    // Update is called once per frame
-    private void Update() {
-        if (Input.touchCount > 0) {
-            Touch touch = Input.GetTouch(0);
+        // Update is called once per frame
+        private void Update() {
+            if (Input.touchCount > 0) {
+                Touch touch = Input.GetTouch(0);
 
-            if (touch.phase == TouchPhase.Began) {
-                ShowJoystick(touch);
-            } else if (touch.phase is TouchPhase.Canceled or TouchPhase.Ended) {
-                HideJoystick();
+                if (touch.phase == TouchPhase.Began) {
+                    ShowJoystick(touch);
+                } else if (touch.phase is TouchPhase.Canceled or TouchPhase.Ended) {
+                    HideJoystick();
+                }
             }
         }
-    }
     
-    private void ShowJoystick(Touch touch) {
-        Vector2 touchScreenPosition = touch.position;
+        private void ShowJoystick(Touch touch) {
+            Vector2 touchScreenPosition = touch.position;
 
-        joystickHandle.transform.position = touchScreenPosition;
-        joystickBackground.transform.position = touchScreenPosition;
+            joystickBackground.transform.position = touchScreenPosition;
         
-        joystickHandle.SetActive(true);
-        joystickBackground.SetActive(true);
-    }
+            SetImageOpacity(joystickHandle, 0.8f);
+            joystickBackground.SetActive(true);
+        }
 
-    private void HideJoystick() {
-        joystickHandle.SetActive(false);
-        joystickBackground.SetActive(false);
+        private void HideJoystick() {
+            SetImageOpacity(joystickHandle, 0f);
+            joystickBackground.SetActive(false);
+        }
+
+        private void SetImageOpacity(Image image, float opacity) {
+            Color color = image.color;
+            color.a = opacity;
+            image.color = color;
+        }
     }
 }
