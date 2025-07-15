@@ -25,11 +25,15 @@ namespace Player {
             if (hit.gameObject.CompareTag("Enemy")) {
                 if (_isPunching) return; // Prevent multiple punches at the same time
                 
+                Enemy.Enemy enemy = hit.gameObject.GetComponent<Enemy.Enemy>();
+                if (enemy == null || enemy.IsKnockedDown) return;
+                
                 _isPunching = true;
                 this.StopAllCoroutines();
                 Debug.Log($"[PlayerTriggerController] Player has entered the trigger of {hit.gameObject.name}.");
                 _playerMovementController.canMove = false;
                 _playerAnimator.SetTrigger(Punch);
+                enemy.Faint();
                 this.StartCoroutine(WaitForAnimationEnd(punchWaitTime)); // Adjust the wait time based on your animation length
             }
         }
