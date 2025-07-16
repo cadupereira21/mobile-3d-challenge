@@ -1,22 +1,48 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 
 namespace Enemy {
     public class Enemy : MonoBehaviour {
-
-        private static readonly int FaintParam = Animator.StringToHash("faint");
+        
+        [SerializeField]
+        [Range(0f, 5f)]
+        private float faintWaitTime = 0.5f;
         
         private Animator _enemyAnimator;
+        
+        private Rigidbody[] _ragdollRigidbodies;
         
         public bool IsKnockedDown { get; private set; } = false;
 
         private void Awake() {
             _enemyAnimator = this.GetComponent<Animator>();
+            _ragdollRigidbodies = this.GetComponentsInChildren<Rigidbody>(); 
+            DisableRagdoll();
+        }
+
+        public void Faint() {
+            this.StartCoroutine(FaintCoroutine());
         }
         
-        public void Faint() {
-            _enemyAnimator.SetTrigger(FaintParam);
+        private IEnumerator FaintCoroutine() {
+            yield return new WaitForSeconds(faintWaitTime);
+            EnableRagdoll();
             IsKnockedDown = true;
-            Debug.Log($"[Enemy] {this.gameObject.name} has fainted.");
+        }
+
+        private void DisableRagdoll() {
+            foreach (Rigidbody rb in _ragdollRigidbodies) {
+                rb.isKinematic = true;
+            }
+            _enemyAnimator.enabled = true;
+        }
+        
+        private void EnableRagdoll() {
+            foreach (Rigidbody rb in _ragdollRigidbodies) {
+                rb.isKinematic = false;
+            }
+            _enemyAnimator.enabled = false;
         }
     }
 }
