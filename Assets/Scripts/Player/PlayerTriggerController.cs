@@ -6,15 +6,25 @@ namespace Player {
         
         private static readonly int Punch = Animator.StringToHash("punch");
         
+        private static readonly int Carry = Animator.StringToHash("carry");
+        
         [SerializeField]
         [Range(0f, 5f)]
         private float punchWaitTime = 1.0f;
         
+        [SerializeField]
+        [Range(0f, 5f)]
+        private float carryWaitTime = 1.0f;
+        
         private PlayerMovementController _playerMovementController;
+        
+        private PlayerCarryController _playerCarryController;
 
         private Animator _playerAnimator;
 
         private bool _isPunching = false;
+
+        private bool _isCarrying = false;
 
         private void Awake() {
             _playerMovementController = this.GetComponent<PlayerMovementController>();
@@ -23,25 +33,47 @@ namespace Player {
 
         private void OnControllerColliderHit(ControllerColliderHit hit) {
             if (hit.gameObject.CompareTag("Enemy")) {
-                if (_isPunching) return; // Prevent multiple punches at the same time
-                
+                Debug.Log($"[PlayerTriggerController] Hit an enemy");
                 Enemy.Enemy enemy = hit.gameObject.GetComponent<Enemy.Enemy>();
-                if (enemy == null || enemy.IsKnockedDown) return;
-                
-                _isPunching = true;
-                this.StopAllCoroutines();
-                Debug.Log($"[PlayerTriggerController] Player has entered the trigger of {hit.gameObject.name}.");
-                _playerMovementController.canMove = false;
-                _playerAnimator.SetTrigger(Punch);
-                enemy.Faint();
-                this.StartCoroutine(WaitForAnimationEnd(punchWaitTime)); // Adjust the wait time based on your animation length
+                if (enemy == null) {
+                    Debug.LogWarning($"[PlayerTriggerController] No Enemy component found on {hit.gameObject.name}");
+                    return;
+                }
+
+                if (!enemy.IsKnockedDown) {
+                    PunchEnemy(enemy);
+                } else if (enemy.CanBeCarried) {
+                    CarryEnemy(enemy);
+                }
             }
         }
+
+        private void PunchEnemy(Enemy.Enemy enemy) {
+            Debug.Log($"[PlayerTriggerController] Punching enemy: {enemy.name}");
+            if (_isPunching) return; // Prevent multiple punches at the same time
+            _isPunching = true;
+            this.StopAllCoroutines();
+            _playerMovementController.canMove = false;
+            _playerAnimator.SetTrigger(Punch);
+            enemy.Faint();
+            this.StartCoroutine(WaitForAnimationEnd(punchWaitTime, _isPunching));
+        }
+
+        private void CarryEnemy(Enemy.Enemy enemy) {
+            Debug.Log($"[PlayerTriggerController] Carrying enemy: {enemy.name}");
+            if (_isCarrying) return; // Prevent carrying if already carrying an enemy
+            _isCarrying = true;
+            this.StopAllCoroutines();
+            _playerMovementController.canMove = false;
+            _playerAnimator.SetTrigger(Carry);
+            _playerCarryController.CarryEnemy(enemy);
+            this.StartCoroutine(WaitForAnimationEnd(carryWaitTime, _isCarrying));
+        }
         
-        private IEnumerator WaitForAnimationEnd(float waitTime) {
+        private IEnumerator WaitForAnimationEnd(float waitTime, bool valueToReset) {
             yield return new WaitForSeconds(waitTime);
             _playerMovementController.canMove = true;
-            _isPunching = false;
+            valueToReset = false;
         }
     }
 }

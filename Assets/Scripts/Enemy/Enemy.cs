@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Enemy {
@@ -9,15 +8,21 @@ namespace Enemy {
         [Range(0f, 5f)]
         private float faintWaitTime = 0.5f;
         
+        [SerializeField]
+        [Range(0f, 5f)]
+        private float carryWaitTime = 1.0f;
+        
         private Animator _enemyAnimator;
         
         private Rigidbody[] _ragdollRigidbodies;
         
-        public bool IsKnockedDown { get; private set; } = false;
+        public bool IsKnockedDown = false;
+        
+        public bool CanBeCarried = false;
 
         private void Awake() {
             _enemyAnimator = this.GetComponent<Animator>();
-            _ragdollRigidbodies = this.GetComponentsInChildren<Rigidbody>(); 
+            _ragdollRigidbodies = this.GetComponentsInChildren<Rigidbody>();
             DisableRagdoll();
         }
 
@@ -29,12 +34,15 @@ namespace Enemy {
             yield return new WaitForSeconds(faintWaitTime);
             EnableRagdoll();
             IsKnockedDown = true;
+            yield return new WaitForSeconds(carryWaitTime);
+            CanBeCarried = true;
         }
 
         private void DisableRagdoll() {
             foreach (Rigidbody rb in _ragdollRigidbodies) {
                 rb.isKinematic = true;
             }
+
             _enemyAnimator.enabled = true;
         }
         
