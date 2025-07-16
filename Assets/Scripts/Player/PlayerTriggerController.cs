@@ -16,9 +16,10 @@ namespace Player {
         [Range(0f, 5f)]
         private float carryWaitTime = 1.0f;
         
-        private PlayerMovementController _playerMovementController;
+        [SerializeField]
+        private PlayerCarryController playerCarryController;
         
-        private PlayerCarryController _playerCarryController;
+        private PlayerMovementController _playerMovementController;
 
         private Animator _playerAnimator;
 
@@ -27,16 +28,16 @@ namespace Player {
         private bool _isCarrying = false;
 
         private void Awake() {
-            _playerMovementController = this.GetComponent<PlayerMovementController>();
-            _playerAnimator = this.GetComponent<Animator>();
+            _playerMovementController = this.GetComponentInParent<PlayerMovementController>();
+            _playerAnimator = this.GetComponentInParent<Animator>();
         }
 
-        private void OnControllerColliderHit(ControllerColliderHit hit) {
-            if (hit.gameObject.CompareTag("Enemy")) {
+        private void OnTriggerEnter(Collider other) {
+            if (other.gameObject.CompareTag("Enemy")) {
                 Debug.Log($"[PlayerTriggerController] Hit an enemy");
-                Enemy.Enemy enemy = hit.gameObject.GetComponent<Enemy.Enemy>();
+                Enemy.Enemy enemy = other.gameObject.GetComponentInParent<Enemy.Enemy>();
                 if (enemy == null) {
-                    Debug.LogWarning($"[PlayerTriggerController] No Enemy component found on {hit.gameObject.name}");
+                    Debug.LogWarning($"[PlayerTriggerController] No Enemy component found on {other.gameObject.name}");
                     return;
                 }
 
@@ -66,7 +67,7 @@ namespace Player {
             this.StopAllCoroutines();
             _playerMovementController.canMove = false;
             _playerAnimator.SetTrigger(Carry);
-            _playerCarryController.CarryEnemy(enemy);
+            playerCarryController.CarryEnemy(enemy);
             this.StartCoroutine(WaitForAnimationEnd(carryWaitTime, _isCarrying));
         }
         

@@ -25,6 +25,7 @@ namespace Player {
         }
 
         public void CarryEnemy(Enemy.Enemy enemy) {
+            Debug.Log($"[PlayerCarryController] Carrying enemy: {enemy.name}");
             enemy.transform.SetParent(carryInitialPosition.transform);
             enemy.transform.localPosition = new Vector3(0, _carriedEnemies.Count * distanceBetweenCarriedEnemies, 0);
             _carriedEnemies.Add(enemy);
