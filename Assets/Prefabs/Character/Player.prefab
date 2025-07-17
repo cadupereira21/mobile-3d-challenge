@@ -346,7 +346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   punchWaitTime: 0.9
-  carryWaitTime: 1
+  carryWaitTime: 1.7
   playerCarryController: {fileID: 3156978141554321216}
 --- !u!1 &770156884919286525
 GameObject:
@@ -3549,7 +3549,7 @@ GameObject:
   - component: {fileID: 8082511473178130953}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

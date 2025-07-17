@@ -33,25 +33,34 @@ namespace Player {
         }
 
         private void OnTriggerEnter(Collider other) {
+            Debug.Log($"[PlayerTriggerController] Trigger entered with {other.gameObject.name}");
             if (other.gameObject.CompareTag("Enemy")) {
-                Debug.Log($"[PlayerTriggerController] Hit an enemy");
-                
-                Enemy.Enemy enemy = other.gameObject.GetComponent<Enemy.Enemy>();
-                
-                if (enemy == null) {
-                    enemy = other.gameObject.GetComponentInParent<Enemy.Enemy>();
-                }
-                
-                if (enemy == null) {
-                    Debug.LogWarning($"[PlayerTriggerController] No Enemy component found on {other.gameObject.name}");
-                    return;
-                }
+                HandleCollisionWithEnemy(other);
+            } 
+            
+            if (other.gameObject.CompareTag("DropBox")) {
+                HandleCollisionWithDropBox();
+            }
+        }
 
-                if (!enemy.IsKnockedDown) {
-                    PunchEnemy(enemy);
-                } else if (enemy.CanBeCarried) {
-                    CarryEnemy(enemy);
-                }
+        private void HandleCollisionWithEnemy(Collider other) {
+            Debug.Log($"[PlayerTriggerController] Hit an enemy");
+                
+            Enemy.Enemy enemy = other.gameObject.GetComponent<Enemy.Enemy>();
+                
+            if (enemy == null) {
+                enemy = other.gameObject.GetComponentInParent<Enemy.Enemy>();
+            }
+                
+            if (enemy == null) {
+                Debug.LogWarning($"[PlayerTriggerController] No Enemy component found on {other.gameObject.name}");
+                return;
+            }
+
+            if (!enemy.IsKnockedDown) {
+                PunchEnemy(enemy);
+            } else if (enemy.CanBeCarried) {
+                CarryEnemy(enemy);
             }
         }
 
@@ -94,6 +103,19 @@ namespace Player {
             enemy.BeingCarried();
             _playerMovementController.canMove = true;
             _isCarrying = false;
+        }
+        
+        private void HandleCollisionWithDropBox() {
+            Debug.Log($"[PlayerTriggerController] Hit a drop box");
+            if (playerCarryController.IsCarryingEnemies) {
+                Drop();
+            } else {
+                Debug.LogWarning($"[PlayerTriggerController] No enemy to drop.");
+            }
+        }
+
+        private void Drop() {
+            Debug.Log($"[PlayerTriggerController] Dropping enemies");
         }
     }
 }

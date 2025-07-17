@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 5087914702539047562}
   - component: {fileID: 3376839004438629069}
   - component: {fileID: 8252398276374143946}
-  - component: {fileID: 2976733596430234985}
-  - component: {fileID: 9165467721603934602}
+  - component: {fileID: 4379932224763643577}
+  - component: {fileID: 105729530579113345}
   m_Layer: 9
   m_Name: WoodenPlankBarrier
-  m_TagString: Untagged
+  m_TagString: DropBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,7 +88,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2976733596430234985
+--- !u!65 &4379932224763643577
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,15 +101,15 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.169737, y: 1.35, z: 0.25}
-  m_Center: {x: 0.014528871, y: 0.81884885, z: 0.1}
---- !u!54 &9165467721603934602
+  m_Size: {x: 2.169737, y: 1.3, z: 0.4}
+  m_Center: {x: 0.014528871, y: 0.81884885, z: 0.2}
+--- !u!54 &105729530579113345
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,11 +128,11 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 126
   m_CollisionDetection: 0

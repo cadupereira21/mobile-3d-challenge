@@ -19,6 +19,8 @@ namespace Player {
         private readonly List<Enemy.Enemy> _carriedEnemies = new ();
         
         public bool CanCarryEnemy => _carriedEnemies.Count < _carryCapacity;
+        
+        public bool IsCarryingEnemies => _carriedEnemies.Count > 0;
 
         private void Awake() {
             _carryCapacity = initalCarryCapacity;
