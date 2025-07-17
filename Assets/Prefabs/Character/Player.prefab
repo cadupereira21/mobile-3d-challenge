@@ -347,6 +347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   punchWaitTime: 0.9
   carryWaitTime: 1
+  playerCarryController: {fileID: 3156978141554321216}
 --- !u!1 &770156884919286525
 GameObject:
   m_ObjectHideFlags: 0
@@ -5897,6 +5898,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 104242042261289152}
+  - component: {fileID: 3156978141554321216}
   m_Layer: 0
   m_Name: CarryParent
   m_TagString: Untagged
@@ -5919,6 +5921,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 621689809677769491}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3156978141554321216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8342860111407258134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917c220b11d745cba3d495ba9eb83cf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carryInitialPosition: {fileID: 8342860111407258134}
+  distanceBetweenCarriedEnemies: 0.5
+  initalCarryCapacity: 2
 --- !u!1 &8585164860133985374
 GameObject:
   m_ObjectHideFlags: 0

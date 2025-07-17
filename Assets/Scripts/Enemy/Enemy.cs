@@ -21,13 +21,17 @@ namespace Enemy {
         public bool CanBeCarried = false;
 
         private void Awake() {
-            _enemyAnimator = this.GetComponent<Animator>();
+            _enemyAnimator = this.GetComponentInParent<Animator>();
             _ragdollRigidbodies = this.GetComponentsInChildren<Rigidbody>();
             DisableRagdoll();
         }
 
         public void Faint() {
             this.StartCoroutine(FaintCoroutine());
+        }
+
+        public void BeingCarried() {
+            CanBeCarried = false;
         }
         
         private IEnumerator FaintCoroutine() {
@@ -36,6 +40,7 @@ namespace Enemy {
             IsKnockedDown = true;
             yield return new WaitForSeconds(carryWaitTime);
             CanBeCarried = true;
+            DisableBodyRagdolls();
         }
 
         private void DisableRagdoll() {
@@ -45,6 +50,17 @@ namespace Enemy {
 
             _enemyAnimator.enabled = true;
         }
+
+        private void DisableBodyRagdolls() {
+            foreach (Rigidbody rb in _ragdollRigidbodies) {
+                if (rb.mass > 10) {
+                    rb.isKinematic = true;
+                }
+            }
+            
+            _enemyAnimator.enabled = false;
+        }
+        
         
         private void EnableRagdoll() {
             foreach (Rigidbody rb in _ragdollRigidbodies) {

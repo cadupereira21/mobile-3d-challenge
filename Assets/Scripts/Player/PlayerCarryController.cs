@@ -16,16 +16,16 @@ namespace Player {
         
         private int _carryCapacity;
 
-        private List<Enemy.Enemy> _carriedEnemies;
+        private readonly List<Enemy.Enemy> _carriedEnemies = new ();
         
-        public bool CanCarryEnemy => _carriedEnemies.Count >= _carryCapacity;
+        public bool CanCarryEnemy => _carriedEnemies.Count-1 >= _carryCapacity;
 
         private void Awake() {
             _carryCapacity = initalCarryCapacity;
         }
 
         public void CarryEnemy(Enemy.Enemy enemy) {
-            Debug.Log($"[PlayerCarryController] Carrying enemy: {enemy.name}");
+            Debug.Log($"[PlayerCarryController] Carrying enemy: {enemy.gameObject.name}");
             enemy.transform.SetParent(carryInitialPosition.transform);
             enemy.transform.localPosition = new Vector3(0, _carriedEnemies.Count * distanceBetweenCarriedEnemies, 0);
             _carriedEnemies.Add(enemy);

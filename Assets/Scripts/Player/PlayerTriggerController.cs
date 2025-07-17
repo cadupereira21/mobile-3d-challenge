@@ -35,7 +35,13 @@ namespace Player {
         private void OnTriggerEnter(Collider other) {
             if (other.gameObject.CompareTag("Enemy")) {
                 Debug.Log($"[PlayerTriggerController] Hit an enemy");
-                Enemy.Enemy enemy = other.gameObject.GetComponentInParent<Enemy.Enemy>();
+                
+                Enemy.Enemy enemy = other.gameObject.GetComponent<Enemy.Enemy>();
+                
+                if (enemy == null) {
+                    enemy = other.gameObject.GetComponentInParent<Enemy.Enemy>();
+                }
+                
                 if (enemy == null) {
                     Debug.LogWarning($"[PlayerTriggerController] No Enemy component found on {other.gameObject.name}");
                     return;
@@ -57,24 +63,37 @@ namespace Player {
             _playerMovementController.canMove = false;
             _playerAnimator.SetTrigger(Punch);
             enemy.Faint();
-            this.StartCoroutine(WaitForAnimationEnd(punchWaitTime, _isPunching));
+            this.StartCoroutine(WaitForPunchAnimationEnd());
         }
 
         private void CarryEnemy(Enemy.Enemy enemy) {
             Debug.Log($"[PlayerTriggerController] Carrying enemy: {enemy.name}");
             if (_isCarrying) return; // Prevent carrying if already carrying an enemy
+
+            if (!playerCarryController.CanCarryEnemy) {
+                Debug.LogWarning($"[PlayerTriggerController] Cannot carry more enemies, capacity reached.");
+                return;
+            }
+            
             _isCarrying = true;
             this.StopAllCoroutines();
             _playerMovementController.canMove = false;
             _playerAnimator.SetTrigger(Carry);
-            playerCarryController.CarryEnemy(enemy);
-            this.StartCoroutine(WaitForAnimationEnd(carryWaitTime, _isCarrying));
+            this.StartCoroutine(CarryEnemyCoroutine(enemy));
         }
         
-        private IEnumerator WaitForAnimationEnd(float waitTime, bool valueToReset) {
-            yield return new WaitForSeconds(waitTime);
+        private IEnumerator WaitForPunchAnimationEnd() {
+            yield return new WaitForSeconds(punchWaitTime);
             _playerMovementController.canMove = true;
-            valueToReset = false;
+            _isPunching = false;
+        }
+        
+        private IEnumerator CarryEnemyCoroutine(Enemy.Enemy enemy) {
+            yield return new WaitForSeconds(carryWaitTime);
+            playerCarryController.CarryEnemy(enemy);
+            enemy.BeingCarried();
+            _playerMovementController.canMove = true;
+            _isCarrying = false;
         }
     }
 }
