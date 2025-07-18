@@ -3546,7 +3546,6 @@ GameObject:
   - component: {fileID: 8057433904976456767}
   - component: {fileID: 6897528583900539083}
   - component: {fileID: 3370163700561057140}
-  - component: {fileID: 8082511473178130953}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3732,21 +3731,6 @@ MonoBehaviour:
   moveSpeed: 5
   controllerDeadZone: 0.1
   canMove: 1
---- !u!114 &8082511473178130953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4624895140451906056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 917c220b11d745cba3d495ba9eb83cf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  carryInitialPosition: {fileID: 8342860111407258134}
-  distanceBetweenCarriedEnemies: 0.5
-  initalCarryCapacity: 2
 --- !u!1 &4673998800115438589
 GameObject:
   m_ObjectHideFlags: 0
@@ -5936,6 +5920,8 @@ MonoBehaviour:
   carryInitialPosition: {fileID: 8342860111407258134}
   distanceBetweenCarriedEnemies: 0.5
   initalCarryCapacity: 2
+  dropBox: {fileID: 0}
+  dropSpeed: 1
 --- !u!1 &8585164860133985374
 GameObject:
   m_ObjectHideFlags: 0

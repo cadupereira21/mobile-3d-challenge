@@ -26,6 +26,8 @@ namespace Player {
         private bool _isPunching = false;
 
         private bool _isCarrying = false;
+        
+        private bool _isDropping = false;
 
         private void Awake() {
             _playerMovementController = this.GetComponentInParent<PlayerMovementController>();
@@ -116,6 +118,16 @@ namespace Player {
 
         private void Drop() {
             Debug.Log($"[PlayerTriggerController] Dropping enemies");
+            if (_isDropping) return; // Prevent multiple drops at the same time
+            
+            _isDropping = true;
+            this.StopAllCoroutines();
+            _playerMovementController.canMove = false;
+            playerCarryController.StopAllCoroutines();
+            this.StartCoroutine(playerCarryController.DropAllEnemies(() => {
+                                                                                _playerMovementController.canMove = true;
+                                                                                _isDropping = false;
+                                                                            }));
         }
     }
 }

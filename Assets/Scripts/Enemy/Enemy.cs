@@ -21,7 +21,7 @@ namespace Enemy {
         public bool CanBeCarried = false;
 
         private void Awake() {
-            _enemyAnimator = this.GetComponentInParent<Animator>();
+            _enemyAnimator = this.GetComponent<Animator>();
             _ragdollRigidbodies = this.GetComponentsInChildren<Rigidbody>();
             DisableRagdoll();
         }

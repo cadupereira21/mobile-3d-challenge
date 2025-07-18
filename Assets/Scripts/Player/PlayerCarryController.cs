@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Player {
     public class PlayerCarryController : MonoBehaviour {
 
+        [Header("Carry Settings")]
         [SerializeField] 
         private GameObject carryInitialPosition;
         
@@ -14,9 +16,17 @@ namespace Player {
         [SerializeField] 
         private int initalCarryCapacity;
         
+        [Header("Drop Settings")]
+        [SerializeField]
+        private Transform dropBox;
+        
+        [SerializeField]
+        [Range(1f, 10f)]
+        private float dropSpeed = 1.0f;
+        
         private int _carryCapacity;
 
-        private readonly List<Enemy.Enemy> _carriedEnemies = new ();
+        private readonly Stack<Enemy.Enemy> _carriedEnemies = new ();
         
         public bool CanCarryEnemy => _carriedEnemies.Count < _carryCapacity;
         
@@ -30,11 +40,27 @@ namespace Player {
             Debug.Log($"[PlayerCarryController] Carrying enemy: {enemy.gameObject.name}");
             enemy.transform.SetParent(carryInitialPosition.transform);
             enemy.transform.localPosition = new Vector3(0, _carriedEnemies.Count * distanceBetweenCarriedEnemies, 0);
-            _carriedEnemies.Add(enemy);
+            _carriedEnemies.Push(enemy);
         }
 
-        public void DropEnemies() {
-            _carriedEnemies.Clear();
+        public IEnumerator DropAllEnemies(Action callback) {
+            while (_carriedEnemies.Count > 0) {
+                Enemy.Enemy enemy = _carriedEnemies.Pop();
+                Transform enemyTransform = enemy.transform;
+                
+                float aux = 0;
+                while (aux < 1) {
+                    aux += Time.deltaTime * dropSpeed;
+                    
+                    enemyTransform.position = Vector3.Lerp(enemyTransform.position, dropBox.position, aux);
+                    
+                    yield return null;
+                }
+                
+                Debug.Log($"[PlayerCarryController] Dropped enemy: {enemy.gameObject.name}");
+                Destroy(enemy.gameObject);
+            }
+            callback.Invoke();
         }
         
     }
