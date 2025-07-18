@@ -25,6 +25,8 @@ namespace Player {
         [Range(1f, 10f)]
         private float dropSpeed = 1.0f;
         
+        private PlayerPointsController _playerPointsController;
+        
         private int _carryCapacity;
 
         private readonly Stack<Enemy.Enemy> _carriedEnemies = new ();
@@ -35,6 +37,7 @@ namespace Player {
 
         private void Awake() {
             _carryCapacity = initalCarryCapacity;
+            _playerPointsController = this.GetComponentInParent<PlayerPointsController>();
         }
 
         public void CarryEnemy(Enemy.Enemy enemy) {
@@ -62,10 +65,13 @@ namespace Player {
                 Debug.Log($"[PlayerCarryController] Dropped enemy: {enemy.gameObject.name}");
                 enemiesDropped.Add(enemy);
             }
+            
+            _playerPointsController.AddPointsForDroppedEnemies(enemiesDropped.Count);
 
             foreach (Enemy.Enemy enemy in enemiesDropped) {
                 Destroy(enemy.gameObject);
             }
+            
             callback.Invoke();
         }
         
