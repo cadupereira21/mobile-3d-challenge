@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Player {
@@ -44,6 +45,7 @@ namespace Player {
         }
 
         public IEnumerator DropAllEnemies(Action callback) {
+            List<Enemy.Enemy> enemiesDropped = new();
             while (_carriedEnemies.Count > 0) {
                 Enemy.Enemy enemy = _carriedEnemies.Pop();
                 Transform enemyTransform = enemy.transform;
@@ -58,6 +60,10 @@ namespace Player {
                 }
                 
                 Debug.Log($"[PlayerCarryController] Dropped enemy: {enemy.gameObject.name}");
+                enemiesDropped.Add(enemy);
+            }
+
+            foreach (Enemy.Enemy enemy in enemiesDropped) {
                 Destroy(enemy.gameObject);
             }
             callback.Invoke();

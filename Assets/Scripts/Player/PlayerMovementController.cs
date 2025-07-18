@@ -33,7 +33,7 @@ namespace Player {
             RotatePlayer();
             Move();
 
-            _animator.SetBool(IsRunning, _input != Vector2.zero);
+            _animator.SetBool(IsRunning, canMove && _input != Vector2.zero);
         }
 
         public void Move(InputAction.CallbackContext context) {
