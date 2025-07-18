@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Player {
     public class PlayerTriggerController : MonoBehaviour {
@@ -29,6 +31,10 @@ namespace Player {
         
         private bool _isDropping = false;
 
+        public static readonly UnityEvent OnStoreAreaEntered = new ();
+        
+        public static readonly UnityEvent OnStoreAreaExited = new ();
+
         private void Awake() {
             _playerMovementController = this.GetComponentInParent<PlayerMovementController>();
             _playerAnimator = this.GetComponentInParent<Animator>();
@@ -46,6 +52,14 @@ namespace Player {
 
             if (other.gameObject.CompareTag("Store")) {
                 HandleCollisionWithStore();
+            }
+        }
+
+        private void OnTriggerExit(Collider other) {
+            Debug.Log($"[PlayerTriggerController] Trigger exited with {other.gameObject.name}");
+
+            if (other.gameObject.CompareTag("Store")) {
+                HideStoreButton();
             }
         }
 
@@ -127,6 +141,17 @@ namespace Player {
 
         private void HandleCollisionWithStore() {
             Debug.Log($"[PlayerTriggerController] Hit a store");
+            ShowStoreButton();
+        }
+        
+        private void ShowStoreButton() {
+            Debug.Log($"[PlayerTriggerController] Showing store button");
+            OnStoreAreaEntered.Invoke();
+        }
+        
+        private void HideStoreButton() {
+            Debug.Log($"[PlayerTriggerController] Hiding store button");
+            OnStoreAreaExited.Invoke();
         }
     }
 }
