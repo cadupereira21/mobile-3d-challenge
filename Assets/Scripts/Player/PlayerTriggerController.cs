@@ -43,6 +43,10 @@ namespace Player {
             if (other.gameObject.CompareTag("DropBox")) {
                 HandleCollisionWithDropBox();
             }
+
+            if (other.gameObject.CompareTag("Store")) {
+                HandleCollisionWithStore();
+            }
         }
 
         private void HandleCollisionWithEnemy(Collider other) {
@@ -87,24 +91,15 @@ namespace Player {
             }
             
             _isCarrying = true;
-            this.StopAllCoroutines();
-            _playerMovementController.canMove = false;
-            _playerAnimator.SetTrigger(Carry);
-            this.StartCoroutine(CarryEnemyCoroutine(enemy));
+            playerCarryController.CarryEnemy(enemy);
+            enemy.BeingCarried();
+            _isCarrying = false;
         }
         
         private IEnumerator WaitForPunchAnimationEnd() {
             yield return new WaitForSeconds(punchWaitTime);
             _playerMovementController.canMove = true;
             _isPunching = false;
-        }
-        
-        private IEnumerator CarryEnemyCoroutine(Enemy.Enemy enemy) {
-            yield return new WaitForSeconds(carryWaitTime);
-            playerCarryController.CarryEnemy(enemy);
-            enemy.BeingCarried();
-            _playerMovementController.canMove = true;
-            _isCarrying = false;
         }
         
         private void HandleCollisionWithDropBox() {
@@ -128,6 +123,10 @@ namespace Player {
                                                                                 _playerMovementController.canMove = true;
                                                                                 _isDropping = false;
                                                                             }));
+        }
+
+        private void HandleCollisionWithStore() {
+            Debug.Log($"[PlayerTriggerController] Hit a store");
         }
     }
 }

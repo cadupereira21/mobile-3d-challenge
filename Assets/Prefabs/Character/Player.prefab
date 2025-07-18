@@ -3546,6 +3546,7 @@ GameObject:
   - component: {fileID: 8057433904976456767}
   - component: {fileID: 6897528583900539083}
   - component: {fileID: 3370163700561057140}
+  - component: {fileID: 8795956223808832390}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3583,7 +3584,7 @@ Animator:
   m_GameObject: {fileID: 4624895140451906056}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: de13a7420582ded45a8d7d3f96889aca, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4c7fe8e1a3919c549a79a706afefd1ce, type: 2}
+  m_Controller: {fileID: 9100000, guid: edf002dcd8b177846971d64a6c14446e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3731,6 +3732,19 @@ MonoBehaviour:
   moveSpeed: 5
   controllerDeadZone: 0.1
   canMove: 1
+--- !u!114 &8795956223808832390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4624895140451906056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 124ea801ed1143d9ab98aa21b049ccd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPointsWorth: 1
 --- !u!1 &4673998800115438589
 GameObject:
   m_ObjectHideFlags: 0

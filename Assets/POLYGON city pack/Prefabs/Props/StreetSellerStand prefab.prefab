@@ -1775,10 +1775,10 @@ GameObject:
   - component: {fileID: 4373751272602718}
   - component: {fileID: 33125493667000544}
   - component: {fileID: 23020463100327342}
-  - component: {fileID: 64507268300006818}
+  - component: {fileID: 5895993251700578578}
   m_Layer: 0
   m_Name: StreetSellerStand
-  m_TagString: Untagged
+  m_TagString: Store
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1892,8 +1892,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64507268300006818
-MeshCollider:
+--- !u!65 &5895993251700578578
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1910,10 +1910,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 73f4b5d89013f594d90e403b7f63f114, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.02403913, y: 0.025259119, z: 0.029012349}
+  m_Center: {x: -0.00070146966, y: -0.0038269465, z: 0.013262221}
 --- !u!1 &1428044982871966
 GameObject:
   m_ObjectHideFlags: 0
