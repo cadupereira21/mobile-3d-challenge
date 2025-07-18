@@ -36,7 +36,7 @@ namespace UI.Joystick {
             joystickBackground.SetActive(true);
         }
 
-        private void HideJoystick() {
+        public void HideJoystick() {
             SetImageOpacity(joystickHandle, 0f);
             joystickBackground.SetActive(false);
         }
