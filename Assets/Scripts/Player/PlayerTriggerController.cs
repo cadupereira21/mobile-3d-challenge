@@ -8,15 +8,9 @@ namespace Player {
         
         private static readonly int Punch = Animator.StringToHash("punch");
         
-        private static readonly int Carry = Animator.StringToHash("carry");
-        
         [SerializeField]
         [Range(0f, 5f)]
         private float punchWaitTime = 1.0f;
-        
-        [SerializeField]
-        [Range(0f, 5f)]
-        private float carryWaitTime = 1.0f;
         
         [SerializeField]
         private PlayerCarryController playerCarryController;

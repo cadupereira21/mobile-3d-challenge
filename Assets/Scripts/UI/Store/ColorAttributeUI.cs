@@ -1,8 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI.Store {
     public class ColorAttributeUI : MonoBehaviour {
+        
+        [SerializeField] private TextMeshProUGUI attributeCostText;
+
+        [SerializeField] private int attributeCost = 1;
 
         [SerializeField] 
         private Material previewUnderwearMaterial;
@@ -31,6 +37,10 @@ namespace UI.Store {
         
         public Color NewColor { get; private set; }
         
+        private TextMeshProUGUI _totalCostTMP;
+
+        private bool _isCharged = false;
+        
         private void Awake() {
             redColorButton.onClick.AddListener(() => OnColorButtonClick(redColorButton.GetComponent<Image>().color));
             yellowColorButton.onClick.AddListener(() => OnColorButtonClick(yellowColorButton.GetComponent<Image>().color));
@@ -39,16 +49,44 @@ namespace UI.Store {
             blueColorButton.onClick.AddListener(() => OnColorButtonClick(blueColorButton.GetComponent<Image>().color));
             purpleColorButton.onClick.AddListener(() => OnColorButtonClick(purpleColorButton.GetComponent<Image>().color));
             pinkColorButton.onClick.AddListener(() => OnColorButtonClick(pinkColorButton.GetComponent<Image>().color));
+            
+            attributeCostText.gameObject.SetActive(true);
+            redColorButton.gameObject.SetActive(true);
+            yellowColorButton.gameObject.SetActive(true);
+            greenColorButton.gameObject.SetActive(true);
+            lightBlueButton.gameObject.SetActive(true);
+            blueColorButton.gameObject.SetActive(true);
+            purpleColorButton.gameObject.SetActive(true);
+            pinkColorButton.gameObject.SetActive(true);
         }
-        
-        public void Init(Color color) {
+
+        private void Start() {
+            attributeCostText.text = $"${attributeCost}";
+        }
+
+        public void Init(Color color, TextMeshProUGUI totalCostText) {
             _previousColor = color;
             NewColor = color;
+            _totalCostTMP = totalCostText;
         }
         
         private void OnColorButtonClick(Color color) {
-            NewColor = color;
-            previewUnderwearMaterial.color = NewColor;
+            if (color != _previousColor) {
+                if (!_isCharged) {
+                    int cost = int.Parse(_totalCostTMP.text[1..]) + attributeCost;
+                    _totalCostTMP.text = $"${cost}";   
+                    _isCharged = true;
+                }
+                
+                NewColor = color;
+                previewUnderwearMaterial.color = NewColor;
+            } else {
+                if (_isCharged) {
+                    int cost = int.Parse(_totalCostTMP.text[1..]) - attributeCost;
+                    _totalCostTMP.text = $"${cost}";
+                    _isCharged = false;
+                }
+            }
         }
         
         public void OnCancelButtonClick() {

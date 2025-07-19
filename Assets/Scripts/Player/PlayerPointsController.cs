@@ -20,7 +20,13 @@ namespace Player {
             Debug.Log($"[PlayerPointsController] Added {pointsToAdd} points for {droppedEnemiesCount} dropped enemies. Total points: {Points}");
         }
         
-        public void ChangePoints(int newPoints) {
+        public void SubtractPoints(int pointsToSubtract) {
+            Points -= pointsToSubtract;
+            OnPointsChanged.Invoke(Points);
+            Debug.Log($"[PlayerPointsController] Subtracted {pointsToSubtract} points. Total points: {Points}");
+        }
+        
+        public void ChangePointsWorth(int newPoints) {
             enemyPointsWorth = newPoints;
             Debug.Log($"[PlayerPointsController] Changed enemy points worth to {enemyPointsWorth}");
         }

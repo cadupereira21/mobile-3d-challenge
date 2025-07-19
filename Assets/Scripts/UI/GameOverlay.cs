@@ -36,10 +36,12 @@ namespace UI {
         }
         
         private void ShowStoreButton() {
+            Debug.Log($"[GameOverlay] ShowStoreButton called");
             storeButton.gameObject.SetActive(true);
         }
         
         private void HideStoreButton() {
+            Debug.Log($"[GameOverlay] HideStoreButton called");
             storeButton.gameObject.SetActive(false);
         }
 

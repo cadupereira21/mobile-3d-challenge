@@ -7343,11 +7343,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeStoreButton: {fileID: 28818855}
+  cancelButton: {fileID: 699150276}
+  saveButton: {fileID: 1108912983}
+  totalCostTMP: {fileID: 676146319}
   carryCapacityAttribute: {fileID: 1847797610}
   pointsAttribute: {fileID: 1609794864}
   colorAttribute: {fileID: 1296414864}
-  cancelButton: {fileID: 699150276}
-  saveButton: {fileID: 1108912983}
   carryController: {fileID: 910890414}
   pointsController: {fileID: 1438546958550902219}
   underwearMaterial: {fileID: 2100000, guid: fbac7c1722f262145b9ed0c0e940864d, type: 2}
@@ -7594,7 +7595,7 @@ GameObject:
   m_Component:
   - component: {fileID: 689320445}
   m_Layer: 5
-  m_Name: Total
+  m_Name: Total Cost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10711,6 +10712,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c6355e05fac412c996a91079d1c3c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attributeCostText: {fileID: 183724603}
+  attributeCost: 1
   previewUnderwearMaterial: {fileID: 2100000, guid: 2fabe93a35489824b992b46da727456e, type: 2}
   redColorButton: {fileID: 1449855246}
   yellowColorButton: {fileID: 1114097532}
@@ -12629,6 +12632,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ef7ae4dcd347a1bea6b4a4ddf7cc21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attributeCostText: {fileID: 1907030793}
+  attributeCost: 1
   valueText: {fileID: 778309172}
   minusButton: {fileID: 1425586617}
   plusButton: {fileID: 1552371408}
@@ -13274,6 +13279,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ef7ae4dcd347a1bea6b4a4ddf7cc21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attributeCostText: {fileID: 1994621104}
+  attributeCost: 1
   valueText: {fileID: 1580174043}
   minusButton: {fileID: 866814166}
   plusButton: {fileID: 181466003}
@@ -13801,7 +13808,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1975720788
 RectTransform:
   m_ObjectHideFlags: 0

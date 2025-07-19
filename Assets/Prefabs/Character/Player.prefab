@@ -346,7 +346,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   punchWaitTime: 0.9
-  carryWaitTime: 1.7
   playerCarryController: {fileID: 3156978141554321216}
 --- !u!1 &770156884919286525
 GameObject:
@@ -5933,7 +5932,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carryInitialPosition: {fileID: 8342860111407258134}
   distanceBetweenCarriedEnemies: 0.5
-  initalCarryCapacity: 2
+  carryCapacity: 1
   dropBox: {fileID: 0}
   dropSpeed: 1
 --- !u!1 &8585164860133985374
