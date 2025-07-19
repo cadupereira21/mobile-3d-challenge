@@ -15,7 +15,7 @@ namespace Player {
         private float distanceBetweenCarriedEnemies = 0.5f;
 
         [SerializeField] 
-        private int initalCarryCapacity;
+        private int carryCapacity;
         
         [Header("Drop Settings")]
         [SerializeField]
@@ -26,17 +26,16 @@ namespace Player {
         private float dropSpeed = 1.0f;
         
         private PlayerPointsController _playerPointsController;
-        
-        private int _carryCapacity;
+
+        public int CarryCapacity => carryCapacity;
 
         private readonly Stack<Enemy.Enemy> _carriedEnemies = new ();
         
-        public bool CanCarryEnemy => _carriedEnemies.Count < _carryCapacity;
+        public bool CanCarryEnemy => _carriedEnemies.Count < CarryCapacity;
         
         public bool IsCarryingEnemies => _carriedEnemies.Count > 0;
 
         private void Awake() {
-            _carryCapacity = initalCarryCapacity;
             _playerPointsController = this.GetComponentInParent<PlayerPointsController>();
         }
 
@@ -73,6 +72,12 @@ namespace Player {
             }
             
             callback.Invoke();
+        }
+
+        public void ChangeCarryCapacity(int newCarryCapacity) {
+            carryCapacity = newCarryCapacity;
+            Debug.Log($"[PlayerCarryController] Carry capacity changed to: {CarryCapacity}");
+            
         }
         
     }

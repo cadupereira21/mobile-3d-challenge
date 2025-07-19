@@ -16,13 +16,15 @@ namespace UI {
         private void Awake() {
             storeButton.onClick.AddListener(OnStoreButtonClick);
             storeButton.gameObject.SetActive(false);
-            
             moneyOverlay.SetActive(true);
             joystickOverlay.gameObject.SetActive(true);
+            storePanel.gameObject.SetActive(false);
         }
 
         private void Start() {
             storePanel.OnCloseStoreButtonClick(CloseStore);
+            storePanel.OnCancelButtonClick(CloseStore);
+            storePanel.OnSaveButtonClick(CloseStore);
             
             PlayerTriggerController.OnStoreAreaEntered.AddListener(ShowStoreButton);
             PlayerTriggerController.OnStoreAreaExited.AddListener(HideStoreButton);
@@ -48,7 +50,6 @@ namespace UI {
         private void OpenStore() {
             storePanel.gameObject.SetActive(true);
             
-            moneyOverlay.SetActive(false);
             joystickOverlay.HideJoystick();
             joystickOverlay.gameObject.SetActive(false);
             storeButton.gameObject.SetActive(false);
@@ -57,7 +58,6 @@ namespace UI {
         private void CloseStore() {
             storePanel.gameObject.SetActive(false);
             
-            moneyOverlay.SetActive(true);
             joystickOverlay.gameObject.SetActive(true);
             joystickOverlay.HideJoystick();
             storeButton.gameObject.SetActive(true);
