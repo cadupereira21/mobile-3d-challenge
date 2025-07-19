@@ -26,7 +26,7 @@ namespace Enemy {
             _ragdollRigidbodies = this.GetComponentsInChildren<Rigidbody>();
             DisableRagdoll();
         }
-
+        
         private void Start() {
             _enemyAnimator.Play("Breathing Idle");
         }
