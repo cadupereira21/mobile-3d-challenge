@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Enemy {
@@ -24,6 +25,10 @@ namespace Enemy {
             _enemyAnimator = this.GetComponent<Animator>();
             _ragdollRigidbodies = this.GetComponentsInChildren<Rigidbody>();
             DisableRagdoll();
+        }
+
+        private void Start() {
+            _enemyAnimator.Play("Breathing Idle");
         }
 
         public void Faint() {
